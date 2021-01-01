@@ -3,37 +3,31 @@ package com.sanzsoftware.githubsearch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.sanzsoftware.githubsearch.api.Service
 import com.sanzsoftware.githubsearch.models.Repository
+import com.sanzsoftware.githubsearch.models.RepositoryViewModel
+import kotlinx.coroutines.GlobalScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var repositoryViewModel: RepositoryViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        repositoryViewModel = ViewModelProvider(this).get(RepositoryViewModel::class.java)
 
+        repositoryViewModel.repositories.observe(this, Observer {
+            for (repository in it)
+                Log.i("MVVM", repository.name)
+        })
 
-        var call =  Service.getInstance().repositoriesApi().getRepositories("repositories")
-        call.enqueue(
-            object: Callback<List<Repository>>{
-                override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                    Log.i("HTTP", "ERROR: ${t.localizedMessage} + ${t.message}")
-                }
-
-                override fun onResponse(
-                    call: Call<List<Repository>>,
-                    response: Response<List<Repository>>
-                ) {
-                    Log.i("HTTP", "SUCCESS -> ${response.code()}")
-                    for (repository in response.body()!!)
-                        Log.i("HTTP", repository.name)
-                }
-
-            }
-        )
 
     }
 }

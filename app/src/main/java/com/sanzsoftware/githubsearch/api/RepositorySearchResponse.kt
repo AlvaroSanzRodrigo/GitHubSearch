@@ -8,5 +8,5 @@ data class RepositorySearchResponse(
     val totalCount: Int,
     @SerializedName("incomplete_results")
     val incompleteResults: String,
-    val result: List<Repository>
+    val result: MutableList<Repository>
 )
