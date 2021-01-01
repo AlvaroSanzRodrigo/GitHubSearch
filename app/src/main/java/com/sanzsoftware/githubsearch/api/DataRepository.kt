@@ -11,25 +11,27 @@ class DataRepository {
     suspend fun getRepositories() {
         try {
             val response = Service.getInstance().repositoriesApi().getRepositories("repositories")
-            Log.i(TAG, "$response")
 
             if (response.isSuccessful) {
-                Log.d(TAG, "SUCCESS")
-                Log.d(TAG, response.body().toString())
+                this.response.value?.clear()
                 this.response.postValue(response.body())
-
-            } else {
-                Log.d(TAG, "FAILURE")
-                Log.d(TAG, response.body().toString())
             }
-
         } catch (e: Exception) {
-            e.message?.let { Log.e(TAG, it) }
+            e.message?.let { Log.e(this.javaClass.simpleName, it) }
         }
-
     }
 
-    companion object {
-        val  TAG = "HTTP"
+    suspend fun searchRepositories(search: String) {
+        try {
+            val response = Service.getInstance().repositoriesApi().searchRepositories("search/repositories", search)
+
+            if (response.isSuccessful) {
+                this.response.value?.clear()
+                this.response.postValue(response.body()?.result?.toMutableList())
+            }
+        } catch (e: Exception) {
+            e.message?.let { Log.e(this.javaClass.simpleName, it) }
+        }
     }
+
 }
