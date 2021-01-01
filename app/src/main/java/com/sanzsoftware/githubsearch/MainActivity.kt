@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
             for (repository in it)
                 Log.i("MVVM", repository.name)
         })
+        //repositoryViewModel.getRepositories()
+        repositoryViewModel.searchRepositories("tetris")
 
 
     }

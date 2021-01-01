@@ -13,4 +13,5 @@ class RepositoryViewModel () : ViewModel() {
     val repositories = dataRepository.response
 
     fun getRepositories() { viewModelScope.launch { dataRepository.getRepositories() } }
+    fun searchRepositories(search: String) { viewModelScope.launch { dataRepository.searchRepositories(search) } }
 }
