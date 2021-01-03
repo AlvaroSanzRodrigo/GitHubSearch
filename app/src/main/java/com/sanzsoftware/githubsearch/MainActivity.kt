@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.sanzsoftware.githubsearch.adapters.RepositoryAdapter
 import com.sanzsoftware.githubsearch.models.Repository
 import com.sanzsoftware.githubsearch.models.RepositoryViewModel
@@ -17,11 +19,26 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnClickedItemListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        start()
+    }
+
+    private fun start(){
         supportActionBar?.hide()
         setRecyclerview()
         registerObservers()
         setSearch()
         repositoryViewModel.getRepositories()
+        addPagination()
+    }
+
+    private fun addPagination(){
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(RecyclerView.VERTICAL))
+                    Snackbar.make(activity_main_layout,"NextPage", Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun registerObservers(){
@@ -46,9 +63,7 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnClickedItemListene
                 searchView.clearFocus()
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {return false}
-
         })
     }
 
