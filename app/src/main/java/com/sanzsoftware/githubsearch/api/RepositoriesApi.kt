@@ -14,5 +14,11 @@ interface RepositoriesApi {
     suspend fun searchRepositories(@Url url:String, @Query("q") search: String?): Response<RepositorySearchResponse>
 
     @GET
+    suspend fun searchRepositoriesNextPage(@Url url:String, @Query("q") search: String?, @Query("since") since:Int): Response<RepositorySearchResponse>
+
+    @GET
     suspend fun getRepositories(@Url url:String): Response<MutableList<Repository>>
+
+    @GET
+    suspend fun getRepositoriesNextPage(@Url url:String, @Query("since") since:Int): Response<MutableList<Repository>>
 }
