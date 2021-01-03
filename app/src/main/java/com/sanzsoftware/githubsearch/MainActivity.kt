@@ -21,15 +21,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        registerObservers()
+
+        //repositoryViewModel.getRepositories()
+        repositoryViewModel.searchRepositories("tetris")
+    }
+
+    fun registerObservers(){
         repositoryViewModel = ViewModelProvider(this).get(RepositoryViewModel::class.java)
 
         repositoryViewModel.repositories.observe(this, Observer {
             for (repository in it)
                 Log.i("MVVM", repository.name)
         })
-        //repositoryViewModel.getRepositories()
-        repositoryViewModel.searchRepositories("tetris")
-
-
     }
+
 }
