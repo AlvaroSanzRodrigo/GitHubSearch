@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GitHubSearch</string>
+    <string name="git_logo">git_logo</string>
 </resources>
