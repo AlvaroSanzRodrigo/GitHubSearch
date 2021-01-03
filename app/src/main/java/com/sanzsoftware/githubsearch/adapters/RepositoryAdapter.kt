@@ -1,6 +1,8 @@
 package com.sanzsoftware.githubsearch.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +25,17 @@ class RepositoryAdapter(var items: ArrayList<Repository>) : RecyclerView.Adapter
 
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item, parent, false).apply {
-            mCallBack = parent.context as OnClickedItemListener
+            mCallBack = unwrap(parent.context) as OnClickedItemListener
         } as View
 
         return MyViewHolder(view)
+    }
+    private fun unwrap(context: Context): Activity? {
+        var context: Context? = context
+        while (context !is Activity && context is ContextWrapper) {
+            context = context.baseContext
+        }
+        return context as Activity?
     }
 
     interface OnClickedItemListener {
