@@ -10,17 +10,16 @@ import com.sanzsoftware.githubsearch.models.Repository
 import com.sanzsoftware.githubsearch.models.RepositoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RepositoryAdapter.OnClickedItemListener {
     private lateinit var repositoryViewModel: RepositoryViewModel
     private var items: ArrayList<Repository> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-
+        setRecyclerview()
         registerObservers()
         repositoryViewModel.getRepositories()
-        setRecyclerview()
         // repositoryViewModel.searchRepositories("tetris")
     }
 
@@ -30,12 +29,16 @@ class MainActivity : AppCompatActivity() {
         repositoryViewModel.repositories.observe(this, Observer {
             items.clear()
             items.addAll(it)
+            recyclerView.adapter?.notifyDataSetChanged()
         })
     }
 
     private fun setRecyclerview(){
-        recyclerView.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = RepositoryAdapter(items)
+    }
+
+    override fun onItemSelected(repository: Repository) {
     }
 
 }
