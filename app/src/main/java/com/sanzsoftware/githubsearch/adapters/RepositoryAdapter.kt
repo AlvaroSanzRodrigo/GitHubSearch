@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 
 
 // Adaptador standar
-class CharacterAdapter(var items: ArrayList<Repository>) : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
+class RepositoryAdapter(var items: ArrayList<Repository>) : RecyclerView.Adapter<RepositoryAdapter.MyViewHolder>() {
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
     var mCallBack: OnClickedItemListener? = null

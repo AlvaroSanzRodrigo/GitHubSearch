@@ -1,39 +1,41 @@
 package com.sanzsoftware.githubsearch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.sanzsoftware.githubsearch.api.Service
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.sanzsoftware.githubsearch.adapters.RepositoryAdapter
 import com.sanzsoftware.githubsearch.models.Repository
 import com.sanzsoftware.githubsearch.models.RepositoryViewModel
-import kotlinx.coroutines.GlobalScope
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var repositoryViewModel: RepositoryViewModel
-
+    private var items: ArrayList<Repository> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         registerObservers()
-
-        //repositoryViewModel.getRepositories()
-        repositoryViewModel.searchRepositories("tetris")
+        repositoryViewModel.getRepositories()
+        setRecyclerview()
+        // repositoryViewModel.searchRepositories("tetris")
     }
 
-    fun registerObservers(){
+    private fun registerObservers(){
         repositoryViewModel = ViewModelProvider(this).get(RepositoryViewModel::class.java)
 
         repositoryViewModel.repositories.observe(this, Observer {
-            for (repository in it)
-                Log.i("MVVM", repository.name)
+            items.clear()
+            items.addAll(it)
         })
+    }
+
+    private fun setRecyclerview(){
+        recyclerView.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
+        recyclerView.adapter = RepositoryAdapter(items)
     }
 
 }
