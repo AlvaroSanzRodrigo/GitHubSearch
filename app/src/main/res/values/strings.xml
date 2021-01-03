@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GitHubSearch</string>
     <string name="git_logo">git_logo</string>
+    <string name="query_hint">Search for a repository</string>
 </resources>
