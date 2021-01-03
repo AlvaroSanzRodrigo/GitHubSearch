@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/darker_blue"
         android:elevation="@dimen/cardview_default_elevation">
 
         <TextView
@@ -45,10 +46,10 @@
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginEnd="32dp"
+            android:contentDescription="@string/git_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/git_logo"
             app:srcCompat="@drawable/ic_git_24_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
