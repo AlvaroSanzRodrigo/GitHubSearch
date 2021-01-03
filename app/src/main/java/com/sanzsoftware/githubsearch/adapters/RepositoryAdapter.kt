@@ -46,8 +46,8 @@ class RepositoryAdapter(var items: ArrayList<Repository>) : RecyclerView.Adapter
         holder.itemView.setOnClickListener {
             mCallBack?.onItemSelected(items[position])
         }
-        holder.view.user_name_textView.text = items[position].name
-        holder.view.repository_name_textView.text = items[position].owner.login
+        holder.view.user_name_textView.text = items[position].owner.login
+        holder.view.repository_name_textView.text = items[position].name
     }
 
     override fun getItemCount() = items.size

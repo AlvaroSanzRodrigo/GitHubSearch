@@ -1,6 +1,7 @@
 package com.sanzsoftware.githubsearch
 
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,8 +20,8 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnClickedItemListene
         supportActionBar?.hide()
         setRecyclerview()
         registerObservers()
+        setSearch()
         repositoryViewModel.getRepositories()
-        // repositoryViewModel.searchRepositories("tetris")
     }
 
     private fun registerObservers(){
@@ -36,6 +37,19 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnClickedItemListene
     private fun setRecyclerview(){
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = RepositoryAdapter(items)
+    }
+
+    private fun setSearch(){
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { repositoryViewModel.searchRepositories(it) }
+                searchView.clearFocus()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {return false}
+
+        })
     }
 
     override fun onItemSelected(repository: Repository) {
