@@ -1,8 +1,9 @@
 package com.sanzsoftware.githubsearch.fragments
 
-import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
@@ -12,10 +13,8 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.sanzsoftware.githubsearch.R
 import com.sanzsoftware.githubsearch.models.Repository
-import kotlinx.android.synthetic.main.repository_dialog.*
-import kotlinx.android.synthetic.main.repository_dialog.repository_button
-import kotlinx.android.synthetic.main.repository_dialog.repository_description_dialog_textView
-import kotlinx.android.synthetic.main.repository_dialog.repository_name_dialog_textView
+import com.sanzsoftware.superapp.transforms.CircleTransform
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.repository_dialog.view.*
 
 
@@ -38,22 +37,23 @@ class RepositoryDialog(private val repository: Repository) : DialogFragment() {
             user_name_dialog_textView.text = repository.owner.login
 
             repository_button.setOnClickListener {
-                Toast.makeText(this.context, repository.htmlUrl, Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(repository.htmlUrl)
+                })
             }
 
             user_button.setOnClickListener {
-              Toast.makeText(this.context, repository.owner.url, Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(repository.owner.url)
+                })
             }
 
-            /*
             Picasso.get()
-                .load(character.thumbnail?.path + "."  + character.thumbnail?.extension)
-                .resize(100, 100)
+                .load(repository.owner.avatarUrl)
+                .resize(80, 80)
                 .transform(CircleTransform())
                 .centerCrop()
-                .into(imageViewDialog)
-             */
-
+                .into(user_icon_imageView)
         }
     }
 
