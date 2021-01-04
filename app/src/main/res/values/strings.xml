@@ -2,4 +2,6 @@
     <string name="app_name">GitHubSearch</string>
     <string name="git_logo">git_logo</string>
     <string name="query_hint">Search for a repository</string>
+    <string name="repository_owner">"Owner: "</string>
+    <string name="link_to_github">Link to github</string>
 </resources>
