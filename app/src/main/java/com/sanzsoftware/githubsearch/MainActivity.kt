@@ -3,11 +3,13 @@ package com.sanzsoftware.githubsearch
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sanzsoftware.githubsearch.adapters.RepositoryAdapter
+import com.sanzsoftware.githubsearch.fragments.RepositoryDialog
 import com.sanzsoftware.githubsearch.models.Repository
 import com.sanzsoftware.githubsearch.models.RepositoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnClickedItemListene
     }
 
     override fun onItemSelected(repository: Repository) {
+        RepositoryDialog(repository).show(this.supportFragmentManager, "REPOSITORY_DIALOG")
     }
 
 }
