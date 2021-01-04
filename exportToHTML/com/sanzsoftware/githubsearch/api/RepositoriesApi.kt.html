@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>RepositoriesApi.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #c792ea; font-style: italic;}
+.s1 { color: #d6deeb;}
+.s2 { color: #c792ea;}
+.s3 { color: #d6deeb;}
+.s4 { color: #7fdbca;}
+.s5 { color: #5f7e97;}
+.s6 { color: #ecc48d;}
+.ln { color: #4b6479; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#011627">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+RepositoriesApi.kt</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">sanzsoftware</span><span class="s2">.</span><span class="s1">githubsearch</span><span class="s2">.</span><span class="s1">api</span>
+<a name="l2"><span class="ln">2    </span></a>
+<a name="l3"><span class="ln">3    </span></a><span class="s1">import retrofit2</span><span class="s2">.</span><span class="s1">Call</span>
+<a name="l4"><span class="ln">4    </span></a><span class="s1">import retrofit2</span><span class="s2">.</span><span class="s1">http</span><span class="s2">.</span><span class="s1">Query</span>
+<a name="l5"><span class="ln">5    </span></a><span class="s1">import retrofit2</span><span class="s2">.</span><span class="s1">http</span><span class="s2">.</span><span class="s1">Url</span>
+<a name="l6"><span class="ln">6    </span></a>
+<a name="l7"><span class="ln">7    </span></a><span class="s0">interface </span><span class="s1">RepositoriesApi </span><span class="s3">{</span>
+<a name="l8"><span class="ln">8    </span></a>    <span class="s0">fun </span><span class="s1">getRepositories</span><span class="s3">(</span><span class="s1">@Url url</span><span class="s4">:</span><span class="s1">String</span><span class="s5">, </span><span class="s1">@Query</span><span class="s3">(</span><span class="s6">&quot;q&quot;</span><span class="s3">) </span><span class="s1">search</span><span class="s4">: </span><span class="s1">String</span><span class="s2">?</span><span class="s3">)</span><span class="s4">: </span><span class="s1">Call</span><span class="s2">&lt;</span><span class="s1">RepositoryResponse</span><span class="s2">&gt;</span>
+<a name="l9"><span class="ln">9    </span></a><span class="s3">}</span></pre>
+</body>
+</html>
